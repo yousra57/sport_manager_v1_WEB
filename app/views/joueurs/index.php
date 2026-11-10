@@ -19,7 +19,7 @@
                 <td><a href="<?= url('equipe', ['id' => $joueur['equipe_id']]) ?>"><?= e($joueur['equipe_nom']) ?></a></td>
                 <td><?= e($joueur['poste_nom']) ?></td>
                 <td class="num"><?= (int) $joueur['age'] ?></td>
-                <td><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : 'Apte' ?></td>
+                <td><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : '<span class="tag vert">Apte</span>' ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

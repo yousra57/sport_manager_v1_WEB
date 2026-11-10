@@ -19,9 +19,9 @@ class EquipeController
         }
 
         render('equipes/show', [
-            'titre' => $equipe['nom'],
+            'titre' => $equipe['nom_equipe'],
             'equipe' => $equipe,
-            'joueurs' => Joueur::byEquipe($equipe['id']),
+            'joueurs' => Joueur::byEquipe($equipe['id_equipe']),
         ]);
     }
 }

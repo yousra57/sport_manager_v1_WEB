@@ -53,6 +53,7 @@ tbody tr:hover { background: var(--fond-doux); }
 
 .tag { display: inline-block; font-size: .8rem; padding: 1px 8px; border-radius: 999px; }
 .tag.rouge { background: #fde8e8; color: #b42318; }
+.tag.vert { background: #e8f7ee; color: #187a3d; }
 
 /* ---- Fiches ---- */
 .infos { display: grid; grid-template-columns: 110px 1fr; gap: 6px 16px; margin: 16px 0; }

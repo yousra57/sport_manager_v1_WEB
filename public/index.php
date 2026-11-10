@@ -3,13 +3,10 @@
 
 require __DIR__ . '/../app/bootstrap.php';
 
-$page = $_GET['p'] ?? 'debrief';
+$page = $_GET['p'] ?? 'equipes';
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?: null;
 
 switch ($page) {
-    case 'debrief':
-        (new HomeController())->index();
-        break;
     case 'equipes':
         (new EquipeController())->index();
         break;

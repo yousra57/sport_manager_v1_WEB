@@ -10,6 +10,5 @@ require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/models/Equipe.php';
 require_once __DIR__ . '/models/Joueur.php';
 
-require_once __DIR__ . '/controllers/HomeController.php';
 require_once __DIR__ . '/controllers/EquipeController.php';
 require_once __DIR__ . '/controllers/JoueurController.php';

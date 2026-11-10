@@ -2,28 +2,31 @@
 
 class Joueur
 {
-    private const SELECT = 'SELECT j.*,
-                                   e.nom AS equipe_nom,
-                                   p.nom AS poste_nom,
-                                   p.description AS poste_description,
-                                   c.vitesse, c.endurance, c.force, c.technique
+    private const SELECT = 'SELECT j.*, j.id_joueur AS id,
+                                   e.id_equipe AS equipe_id,
+                                   e.nom_equipe AS equipe_nom,
+                                   p.nom_post AS poste_nom,
+                                   NULL AS poste_description,
+                                   j.vitesse, j.endurance, j.force, j.technique,
+                                   CASE WHEN b.id_blessure IS NULL THEN 0 ELSE 1 END AS est_blesse
                             FROM joueurs j
-                            JOIN equipes e ON e.id = j.equipe_id
-                            JOIN postes p ON p.id = j.poste_id
-                            LEFT JOIN competences c ON c.joueur_id = j.id';
+                            JOIN poste p ON p.id_post = j.id_post
+                            LEFT JOIN affectation a ON a.id_joueur = j.id_joueur AND a.date_fin IS NULL
+                            LEFT JOIN equipe e ON e.id_equipe = a.id_equipe
+                            LEFT JOIN blessure b ON b.id_joueur = j.id_joueur AND b.date_fin IS NULL';
 
     /** Tous les joueurs (avec équipe et poste). */
     public static function all(): array
     {
         return Database::pdo()
-            ->query(self::SELECT . ' ORDER BY e.nom, j.numero')
+            ->query(self::SELECT . ' ORDER BY e.nom_equipe, j.numero')
             ->fetchAll();
     }
 
     /** Les joueurs d'une équipe. */
     public static function byEquipe(int $equipeId): array
     {
-        $st = Database::pdo()->prepare(self::SELECT . ' WHERE j.equipe_id = ? ORDER BY j.numero');
+        $st = Database::pdo()->prepare(self::SELECT . ' WHERE e.id_equipe = ? ORDER BY j.numero');
         $st->execute([$equipeId]);
 
         return $st->fetchAll();
@@ -32,7 +35,7 @@ class Joueur
     /** Un joueur avec son équipe, son poste et ses compétences. */
     public static function find(int $id): ?array
     {
-        $st = Database::pdo()->prepare(self::SELECT . ' WHERE j.id = ?');
+        $st = Database::pdo()->prepare(self::SELECT . ' WHERE j.id_joueur = ?');
         $st->execute([$id]);
 
         return $st->fetch() ?: null;

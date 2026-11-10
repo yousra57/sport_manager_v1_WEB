@@ -12,11 +12,11 @@ $competences = [
 <dl class="infos">
     <dt>Numéro</dt><dd><?= (int) $joueur['numero'] ?></dd>
     <dt>Âge</dt><dd><?= (int) $joueur['age'] ?> ans</dd>
-    <dt>Poste</dt><dd><?= e($joueur['poste_nom']) ?> <span class="discret">– <?= e($joueur['poste_description']) ?></span></dd>
-    <dt>État</dt><dd><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : 'Apte' ?></dd>
+    <dt>Poste</dt><dd><?= e($joueur['poste_nom']) ?></dd>
+    <dt>État</dt><dd><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : '<span class="tag vert">Apte</span>' ?></dd>
     <dt>Équipe</dt>
     <dd><a href="<?= url('equipe', ['id' => $equipe['id']]) ?>"><?= e($equipe['nom']) ?></a>
-        <span class="discret">– <?= e($equipe['ville']) ?>, <?= e($equipe['stade']) ?></span></dd>
+    </dd>
 </dl>
 
 <h2>Caractéristiques</h2>

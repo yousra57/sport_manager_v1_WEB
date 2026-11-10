@@ -1,8 +1,7 @@
 <?php
 // Variables disponibles : $titre, $contenu
-$courante = $_GET['p'] ?? 'debrief';
+$courante = $_GET['p'] ?? 'equipes';
 $menu = [
-    'debrief' => ['Débrief', ['debrief']],
     'equipes' => ['Équipes', ['equipes', 'equipe']],
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
 ];
@@ -18,7 +17,7 @@ $menu = [
 <body>
 <header class="site-header">
     <div class="wrap">
-        <a class="logo" href="<?= url('debrief') ?>">Sport Manager</a>
+        <a class="logo" href="<?= url('equipes') ?>">Sport Manager</a>
         <nav>
             <?php foreach ($menu as $page => [$libelle, $pages]): ?>
                 <a href="<?= url($page) ?>" class="<?= in_array($courante, $pages, true) ? 'actif' : '' ?>"><?= e($libelle) ?></a>

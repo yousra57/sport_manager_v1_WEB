@@ -1,94 +1,21 @@
 <?php
-// Jeu de données de départ (repris du SeedData du projet bloc 2).
-
 function creerSchemaEtDonnees(PDO $pdo): void
 {
-    $pdo->exec('
-        CREATE TABLE postes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom TEXT NOT NULL,
-            description TEXT NOT NULL
-        );
-        CREATE TABLE equipes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom TEXT NOT NULL,
-            ville TEXT NOT NULL,
-            stade TEXT NOT NULL,
-            budget INTEGER NOT NULL
-        );
-        CREATE TABLE joueurs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom TEXT NOT NULL,
-            prenom TEXT NOT NULL,
-            age INTEGER NOT NULL,
-            numero INTEGER NOT NULL,
-            est_blesse INTEGER NOT NULL DEFAULT 0,
-            equipe_id INTEGER NOT NULL REFERENCES equipes(id),
-            poste_id INTEGER NOT NULL REFERENCES postes(id)
-        );
-        CREATE TABLE competences (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            joueur_id INTEGER NOT NULL UNIQUE REFERENCES joueurs(id),
-            vitesse INTEGER NOT NULL,
-            endurance INTEGER NOT NULL,
-            force INTEGER NOT NULL,
-            technique INTEGER NOT NULL
-        );
-    ');
-
+    $pdo->exec('PRAGMA foreign_keys = OFF');
+    foreach (['participer','blessure','affectation','joueurs','poste','matchs','equipe','coach'] as $table) $pdo->exec("DROP TABLE IF EXISTS $table");
+    $pdo->exec('PRAGMA foreign_keys = ON');
+    $pdo->exec("CREATE TABLE coach(id_coach INTEGER PRIMARY KEY,nom VARCHAR(100) NOT NULL,identifiant VARCHAR(50) NOT NULL UNIQUE,mot_de_passe_hash VARCHAR(255) NOT NULL);
+CREATE TABLE equipe(id_equipe INTEGER PRIMARY KEY,nom_equipe VARCHAR(100) NOT NULL,date_creation DATE NOT NULL,couleur VARCHAR(7),couleur_secondaire VARCHAR(7),id_coach INTEGER NOT NULL REFERENCES coach(id_coach));
+CREATE TABLE matchs(id_match INTEGER PRIMARY KEY,date_prevue DATETIME NOT NULL,date_match DATETIME,score_dom VARCHAR(50),score_ext VARCHAR(50),status VARCHAR(10) NOT NULL CHECK(status IN ('a_venir','en_cours','termine')),id_equipe INTEGER NOT NULL REFERENCES equipe(id_equipe),id_equipe_1 INTEGER NOT NULL REFERENCES equipe(id_equipe));
+CREATE TABLE poste(id_post INTEGER PRIMARY KEY,nom_post VARCHAR(100) NOT NULL);
+CREATE TABLE joueurs(id_joueur INTEGER PRIMARY KEY,prenom VARCHAR(100) NOT NULL,nom VARCHAR(100) NOT NULL,age INTEGER,vitesse INTEGER NOT NULL,endurance INTEGER NOT NULL,technique INTEGER NOT NULL,force INTEGER NOT NULL,numero INTEGER,variante_avatar INTEGER,id_post INTEGER NOT NULL REFERENCES poste(id_post));
+CREATE TABLE affectation(id_affectation INTEGER PRIMARY KEY,date_debut DATETIME NOT NULL,date_fin DATETIME,id_equipe INTEGER NOT NULL REFERENCES equipe(id_equipe),id_joueur INTEGER NOT NULL REFERENCES joueurs(id_joueur));
+CREATE TABLE blessure(id_blessure INTEGER PRIMARY KEY,date_debut DATETIME NOT NULL,date_fin DATETIME,id_joueur INTEGER NOT NULL REFERENCES joueurs(id_joueur));
+CREATE TABLE participer(id_joueur INTEGER NOT NULL REFERENCES joueurs(id_joueur),id_match INTEGER NOT NULL REFERENCES matchs(id_match),PRIMARY KEY(id_joueur,id_match));");
     $pdo->beginTransaction();
-
-    $postes = [
-        ['Gardien', 'Gardien de but'],
-        ['Défenseur', 'Défenseur central ou latéral'],
-        ['Milieu', 'Milieu de terrain'],
-        ['Attaquant', 'Attaquant ou ailier'],
-    ];
-    $st = $pdo->prepare('INSERT INTO postes (nom, description) VALUES (?, ?)');
-    foreach ($postes as $p) { $st->execute($p); }
-
-    $equipes = [
-        ['Paris FC', 'Paris', 'Parc des Princes', 500000000],
-        ['Lyon United', 'Lyon', 'Groupama Stadium', 300000000],
-        ['Marseille City', 'Marseille', 'Vélodrome', 250000000],
-        ['Bordeaux FC', 'Bordeaux', 'Matmut Atlantique', 150000000],
-    ];
-    $st = $pdo->prepare('INSERT INTO equipes (nom, ville, stade, budget) VALUES (?, ?, ?, ?)');
-    foreach ($equipes as $e) { $st->execute($e); }
-
-    // [equipe_id, nom, prenom, age, numero, poste_id, vitesse, endurance, force, technique]
-    $joueurs = [
-        [1, 'Dupont', 'Lucas', 28, 1, 1, 90, 57, 51, 67],
-        [1, 'Martin', 'Hugo', 25, 4, 2, 65, 64, 58, 56],
-        [1, 'Bernard', 'Théo', 27, 5, 2, 93, 84, 55, 87],
-        [1, 'Petit', 'Enzo', 23, 8, 3, 77, 52, 51, 55],
-        [1, 'Leroy', 'Kylian', 24, 10, 4, 63, 64, 82, 88],
-        [1, 'Moreau', 'Antoine', 26, 9, 4, 51, 85, 62, 91],
-        [2, 'Garcia', 'Maxime', 29, 1, 1, 94, 84, 76, 64],
-        [2, 'Thomas', 'Romain', 24, 3, 2, 78, 87, 67, 50],
-        [2, 'Robert', 'Julien', 26, 6, 2, 60, 94, 77, 71],
-        [2, 'Richard', 'Nathan', 22, 8, 3, 67, 59, 63, 71],
-        [2, 'Simon', 'Alexis', 25, 11, 4, 56, 55, 74, 56],
-        [2, 'Laurent', 'Yanis', 23, 9, 4, 72, 72, 88, 66],
-        [3, 'Michel', 'Kevin', 30, 1, 1, 52, 79, 84, 57],
-        [3, 'Lefebvre', 'Dylan', 25, 2, 2, 74, 55, 85, 68],
-        [3, 'Lefevre', 'Samir', 27, 5, 2, 90, 89, 73, 86],
-        [3, 'Fontaine', 'Mehdi', 24, 7, 3, 62, 54, 52, 92],
-        [3, 'Chevalier', 'Sofiane', 26, 10, 4, 64, 68, 55, 64],
-        [3, 'Rousseau', 'Bilal', 22, 9, 4, 56, 74, 67, 79],
-        [4, 'Blanc', 'Florian', 27, 1, 1, 90, 73, 60, 73],
-        [4, 'Noir', 'Corentin', 23, 4, 2, 72, 63, 92, 67],
-        [4, 'Brun', 'Timothe', 25, 5, 2, 94, 93, 91, 54],
-        [4, 'Gris', 'Axel', 21, 8, 3, 88, 90, 60, 84],
-        [4, 'Beige', 'Luca', 24, 11, 4, 65, 60, 79, 74],
-        [4, 'Violet', 'Noa', 22, 9, 4, 67, 90, 94, 85],
-    ];
-    $stJ = $pdo->prepare('INSERT INTO joueurs (nom, prenom, age, numero, equipe_id, poste_id) VALUES (?, ?, ?, ?, ?, ?)');
-    $stC = $pdo->prepare('INSERT INTO competences (joueur_id, vitesse, endurance, force, technique) VALUES (?, ?, ?, ?, ?)');
-    foreach ($joueurs as [$eq, $nom, $prenom, $age, $num, $poste, $vit, $end, $for, $tec]) {
-        $stJ->execute([$nom, $prenom, $age, $num, $eq, $poste]);
-        $stC->execute([(int) $pdo->lastInsertId(), $vit, $end, $for, $tec]);
-    }
-
+    $pdo->exec("INSERT INTO coach VALUES(1,'Coach principal','coach','hash'); INSERT INTO equipe VALUES(1,'Paris FC','2024-01-01','#0055A4','#EF4135',1),(2,'Lyon United','2024-01-01','#1E3A8A','#F97316',1),(3,'Marseille City','2024-01-01','#00AEEF','#FFFFFF',1),(4,'Bordeaux FC','2024-01-01','#7F1734','#D4AF37',1); INSERT INTO poste VALUES(1,'Gardien'),(2,'Défenseur'),(3,'Milieu'),(4,'Attaquant');");
+    $joueurs=[['Lucas','Dupont',28,90,57,67,51,1],['Hugo','Martin',25,65,64,56,58,2],['Théo','Bernard',27,93,84,87,55,2],['Enzo','Petit',23,77,52,55,51,3],['Kylian','Leroy',24,63,64,88,82,4],['Antoine','Moreau',26,51,85,91,62,4]];
+    $st=$pdo->prepare('INSERT INTO joueurs(prenom,nom,age,vitesse,endurance,technique,force,numero,id_post) VALUES(?,?,?,?,?,?,?,?,?)'); $aff=$pdo->prepare('INSERT INTO affectation(date_debut,id_equipe,id_joueur) VALUES(?,?,?)');
+    foreach($joueurs as $i=>$j){$st->execute([$j[0],$j[1],$j[2],$j[3],$j[4],$j[5],$j[6],$i+1,$j[7]]);$aff->execute(['2024-01-01',($i%4)+1,$pdo->lastInsertId()]);}
     $pdo->commit();
 }

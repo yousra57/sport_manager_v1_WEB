@@ -17,8 +17,9 @@ class Database
             $pdo->exec('PRAGMA foreign_keys = ON');
 
             // Première exécution : on crée les tables et on charge le jeu de données.
-            $existe = $pdo->query("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'equipes'")->fetch();
-            if (!$existe) {
+            $existe = $pdo->query("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'equipe'")->fetch();
+            $ancienSchema = $pdo->query("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'equipes'")->fetch();
+            if (!$existe || $ancienSchema) {
                 require_once ROOT_PATH . '/database/seed.php';
                 creerSchemaEtDonnees($pdo);
             }

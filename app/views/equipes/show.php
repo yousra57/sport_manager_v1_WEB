@@ -2,9 +2,8 @@
 <h1><?= e($equipe['nom']) ?></h1>
 
 <dl class="infos">
-    <dt>Ville</dt><dd><?= e($equipe['ville']) ?></dd>
-    <dt>Stade</dt><dd><?= e($equipe['stade']) ?></dd>
-    <dt>Budget</dt><dd><?= argent($equipe['budget']) ?></dd>
+    <dt>Créée le</dt><dd><?= e($equipe['date_creation']) ?></dd>
+    <dt>Coach</dt><dd><?= e($equipe['coach_nom']) ?></dd>
     <dt>Effectif</dt><dd><?= count($joueurs) ?> joueur(s)</dd>
 </dl>
 
@@ -29,7 +28,7 @@
                     <td><a href="<?= url('joueur', ['id' => $joueur['id']]) ?>"><?= e($joueur['prenom'] . ' ' . $joueur['nom']) ?></a></td>
                     <td><?= e($joueur['poste_nom']) ?></td>
                     <td class="num"><?= (int) $joueur['age'] ?></td>
-                    <td><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : 'Apte' ?></td>
+                    <td><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : '<span class="tag vert">Apte</span>' ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
