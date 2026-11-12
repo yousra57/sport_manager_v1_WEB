@@ -7,13 +7,13 @@ class Joueur
                                    e.nom_equipe AS equipe_nom,
                                    p.nom_post AS poste_nom,
                                    NULL AS poste_description,
-                                   j.vitesse, j.endurance, j.force, j.technique,
-                                   CASE WHEN b.id_blessure IS NULL THEN 0 ELSE 1 END AS est_blesse
-                            FROM joueurs j
+                                   j.force_physique AS `force`,
+                                   EXISTS (SELECT 1 FROM blessure b
+                                           WHERE b.id_joueur = j.id_joueur AND b.date_fin IS NULL) AS est_blesse
+                            FROM joueur j
                             JOIN poste p ON p.id_post = j.id_post
                             LEFT JOIN affectation a ON a.id_joueur = j.id_joueur AND a.date_fin IS NULL
-                            LEFT JOIN equipe e ON e.id_equipe = a.id_equipe
-                            LEFT JOIN blessure b ON b.id_joueur = j.id_joueur AND b.date_fin IS NULL';
+                            LEFT JOIN equipe e ON e.id_equipe = a.id_equipe';
 
     /** Tous les joueurs (avec équipe et poste). */
     public static function all(): array

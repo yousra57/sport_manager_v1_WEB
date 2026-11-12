@@ -15,7 +15,12 @@ $competences = [
     <dt>Poste</dt><dd><?= e($joueur['poste_nom']) ?></dd>
     <dt>État</dt><dd><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : '<span class="tag vert">Apte</span>' ?></dd>
     <dt>Équipe</dt>
-    <dd><a href="<?= url('equipe', ['id' => $equipe['id']]) ?>"><?= e($equipe['nom']) ?></a>
+    <dd>
+        <?php if ($equipe): ?>
+            <a href="<?= url('equipe', ['id' => $equipe['id']]) ?>"><?= e($equipe['nom']) ?></a>
+        <?php else: ?>
+            Sans équipe
+        <?php endif; ?>
     </dd>
 </dl>
 

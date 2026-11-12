@@ -16,7 +16,13 @@
             <tr>
                 <td class="num"><?= (int) $joueur['numero'] ?></td>
                 <td><a href="<?= url('joueur', ['id' => $joueur['id']]) ?>"><?= e($joueur['prenom'] . ' ' . $joueur['nom']) ?></a></td>
-                <td><a href="<?= url('equipe', ['id' => $joueur['equipe_id']]) ?>"><?= e($joueur['equipe_nom']) ?></a></td>
+                <td>
+                    <?php if ($joueur['equipe_id'] !== null): ?>
+                        <a href="<?= url('equipe', ['id' => $joueur['equipe_id']]) ?>"><?= e($joueur['equipe_nom']) ?></a>
+                    <?php else: ?>
+                        Sans équipe
+                    <?php endif; ?>
+                </td>
                 <td><?= e($joueur['poste_nom']) ?></td>
                 <td class="num"><?= (int) $joueur['age'] ?></td>
                 <td><?= $joueur['est_blesse'] ? '<span class="tag rouge">Blessé</span>' : '<span class="tag vert">Apte</span>' ?></td>

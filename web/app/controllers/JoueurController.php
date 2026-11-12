@@ -21,7 +21,7 @@ class JoueurController
         render('joueurs/show', [
             'titre' => $joueur['prenom'] . ' ' . $joueur['nom'],
             'joueur' => $joueur,
-            'equipe' => Equipe::find($joueur['equipe_id']),
+            'equipe' => $joueur['equipe_id'] !== null ? Equipe::find((int) $joueur['equipe_id']) : null,
         ]);
     }
 }

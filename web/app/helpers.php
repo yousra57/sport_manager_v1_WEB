@@ -27,10 +27,10 @@ function render(string $vue, array $donnees = []): void
     extract($donnees);
 
     ob_start();
-    require ROOT_PATH . '/app/views/' . $vue . '.php';
+    require WEB_PATH . '/app/views/' . $vue . '.php';
     $contenu = ob_get_clean();
 
-    require ROOT_PATH . '/app/views/layout.php';
+    require WEB_PATH . '/app/views/layout.php';
 }
 
 function notFound(string $message = 'Page introuvable.'): void

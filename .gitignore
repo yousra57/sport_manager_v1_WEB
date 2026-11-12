@@ -1,0 +1,9 @@
+# Configuration locale
+/backend/config.php
+
+# Ancienne base SQLite et fichiers temporaires associés
+/backend/data/*.sqlite
+/backend/data/*.sqlite-*
+
+# Journaux locaux
+*.log

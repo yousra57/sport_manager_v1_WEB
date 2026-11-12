@@ -5,11 +5,11 @@ class Equipe
     /** Toutes les équipes, avec leur nombre de joueurs. */
     public static function all(): array
     {
-        $sql = 'SELECT e.*, e.id_equipe AS id, e.nom_equipe AS nom, c.nom AS coach_nom, COUNT(a.id_joueur) AS nb_joueurs
+        $sql = 'SELECT e.*, e.id_equipe AS id, e.nom_equipe AS nom, c.nom AS coach_nom,
+                       (SELECT COUNT(DISTINCT a.id_joueur) FROM affectation a
+                        WHERE a.id_equipe = e.id_equipe AND a.date_fin IS NULL) AS nb_joueurs
                 FROM equipe e
                 LEFT JOIN coach c ON c.id_coach = e.id_coach
-                LEFT JOIN affectation a ON a.id_equipe = e.id_equipe AND a.date_fin IS NULL
-                GROUP BY e.id_equipe
                 ORDER BY e.nom_equipe';
 
         return Database::pdo()->query($sql)->fetchAll();
