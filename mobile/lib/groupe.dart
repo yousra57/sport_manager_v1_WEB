@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+
+// liste et détail des joueurs
+
 const _navy = Color(0xFF142B45);
 const _green = Color(0xFF31B879);
 

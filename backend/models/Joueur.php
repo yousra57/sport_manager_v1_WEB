@@ -1,5 +1,5 @@
 <?php
-
+// Requêtes SQL sur les joueurs
 class Joueur
 {
     private const SELECT = 'SELECT j.*, j.id_joueur AS id,
@@ -15,7 +15,7 @@ class Joueur
                             LEFT JOIN affectation a ON a.id_joueur = j.id_joueur AND a.date_fin IS NULL
                             LEFT JOIN equipe e ON e.id_equipe = a.id_equipe';
 
-    /** Tous les joueurs (avec équipe et poste). */
+    /** Récupère tous les joueurs (avec équipe et poste). */
     public static function all(): array
     {
         return Database::pdo()
@@ -23,7 +23,7 @@ class Joueur
             ->fetchAll();
     }
 
-    /** Les joueurs d'une équipe. */
+    /** Récupère les joueurs d'une équipe. */
     public static function byEquipe(int $equipeId): array
     {
         $st = Database::pdo()->prepare(self::SELECT . ' WHERE e.id_equipe = ? ORDER BY j.numero');
@@ -32,7 +32,7 @@ class Joueur
         return $st->fetchAll();
     }
 
-    /** Un joueur avec son équipe, son poste et ses compétences. */
+    /** Récupère un joueur avec son équipe, son poste et ses compétences. */
     public static function find(int $id): ?array
     {
         $st = Database::pdo()->prepare(self::SELECT . ' WHERE j.id_joueur = ?');

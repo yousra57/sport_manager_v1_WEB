@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'groupe.dart';
 import 'joueur.dart';
 
+
+// navigation principale
+
 void main() => runApp(const SportManagerApp());
 
 class SportManagerApp extends StatelessWidget {
