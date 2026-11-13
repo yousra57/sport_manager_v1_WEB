@@ -1,29 +1,31 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
   // Adresse de notre serveur PHP local
-  static const String baseUrl = 'http://127.0.0.1:8001';
+  // Pour Chrome sur ce PC, la valeur par défaut convient.
+  // Peut être changée au lancement avec --dart-define=API_BASE_URL=...
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://localhost:8001',
+  );
+
+  // Client remplaçable dans les tests : ils n'ont pas besoin de MariaDB.
+  static http.Client client = http.Client();
 
   // Fonction commune pour envoyer les requêtes GET
   static Future<dynamic> _get(String endpoint) async {
     final url = Uri.parse('$baseUrl$endpoint');
 
-    final response = await http.get(
-      url,
-      headers: {
-        'Accept': 'application/json',
-      },
-    );
+    final response = await client
+        .get(url, headers: {'Accept': 'application/json'})
+        .timeout(const Duration(seconds: 10));
 
     if (response.statusCode != 200) {
-      throw Exception(
-        'Erreur serveur : ${response.statusCode}',
-      );
+      throw Exception('Erreur serveur : ${response.statusCode}');
     }
 
-    final resultat = jsonDecode(response.body);
+    final resultat = jsonDecode(utf8.decode(response.bodyBytes));
 
     if (resultat['success'] != true) {
       throw Exception('La requête API a échoué');
@@ -32,7 +34,7 @@ class ApiService {
     return resultat['data'];
   }
 
-// Les 4 fonctions suivantes utilisent la fonction _get pour récupérer les données depuis l'API PHP
+  // Les 4 fonctions suivantes utilisent la fonction _get pour récupérer les données depuis l'API PHP
   // Récupérer toutes les équipes : Endpoint PHP --> /api/equipes
   static Future<List<dynamic>> getEquipes() async {
     final data = await _get('/api/equipes');

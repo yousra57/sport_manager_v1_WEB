@@ -1,124 +1,168 @@
 import 'package:flutter/material.dart';
-
-
-// liste et détail des joueurs
+import 'joueur.dart';
+import 'models/sport.dart';
+import 'services/api_service.dart';
+import 'widgets/api_builder.dart';
 
 const _navy = Color(0xFF142B45);
 const _green = Color(0xFF31B879);
 
+Color _couleur(String hex) => Color(
+  int.tryParse('FF${hex.replaceFirst('#', '')}', radix: 16) ?? 0xFF31B879,
+);
+
+// La liste vient maintenant de GET /api/equipes, et non d'une liste fictive.
 class GroupPage extends StatelessWidget {
   const GroupPage({super.key});
 
-  static const _teams = [
-    _Team('Les Aigles', '12 joueurs', 'Coach Martin', Color(0xFF31B879), '2019'),
-    _Team('Étoile Sportive', '18 joueurs', 'Coach Dupont', Color(0xFF4776D0), '2021'),
-    _Team('Olympique Club', '15 joueurs', 'Coach Bernard', Color(0xFFE69B35), '2020'),
-  ];
-
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
-      body: SafeArea(
-        child: Column(children: [
-          _PageHeader(title: 'Équipes', subtitle: 'Retrouvez vos équipes', icon: Icons.groups_rounded),
-          Expanded(
-            child: ListView(padding: const EdgeInsets.fromLTRB(20, 8, 20, 20), children: [
-              Row(children: [
-                const Expanded(child: Text('Mes équipes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: _navy))),
-                _CountBadge(count: _teams.length),
-              ]),
-              const SizedBox(height: 14),
-              ..._teams.map((team) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: _TeamCard(team: team, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => _TeamDetailPage(team: team)))),
-              )),
-            ]),
-          ),
-        ]),
-      ),
-    );
-  }
-}
-
-class _Team {
-  const _Team(this.name, this.players, this.coach, this.color, this.year);
-  final String name, players, coach, year;
-  final Color color;
-}
-
-class _TeamCard extends StatelessWidget {
-  const _TeamCard({required this.team, required this.onTap});
-  final _Team team;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => Card(
-    margin: EdgeInsets.zero,
-    color: Colors.white,
-    elevation: 0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18), side: const BorderSide(color: Color(0xFFE8EDF2))),
-    child: InkWell(
-      borderRadius: BorderRadius.circular(18),
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(children: [
-          Container(width: 54, height: 54, decoration: BoxDecoration(color: team.color.withValues(alpha: .12), borderRadius: BorderRadius.circular(16)), child: Icon(Icons.shield_rounded, color: team.color, size: 30)),
-          const SizedBox(width: 14),
-          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(team.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _navy)),
-            const SizedBox(height: 6),
-            Text('${team.players}  ·  ${team.coach}', style: const TextStyle(fontSize: 12, color: Color(0xFF778497))),
-          ])),
-          const Icon(Icons.chevron_right_rounded, color: Color(0xFF9AA6B2)),
-        ]),
-      ),
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Équipes')),
+    body: ApiBuilder<List<dynamic>>(
+      charger: ApiService.getEquipes,
+      builder: (donnees) {
+        final equipes = donnees
+            .map((json) => Equipe.fromJson(Map<String, dynamic>.from(json)))
+            .toList();
+        if (equipes.isEmpty) {
+          return const Center(child: Text('Aucune équipe pour le moment.'));
+        }
+        return ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            Text(
+              'Mes équipes (${equipes.length})',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: _navy,
+              ),
+            ),
+            const SizedBox(height: 14),
+            for (final equipe in equipes)
+              Card(
+                color: Colors.white,
+                elevation: 0,
+                margin: const EdgeInsets.only(bottom: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(14),
+                  leading: CircleAvatar(
+                    backgroundColor: _couleur(
+                      equipe.couleur,
+                    ).withValues(alpha: .12),
+                    child: Icon(
+                      Icons.shield_rounded,
+                      color: _couleur(equipe.couleur),
+                    ),
+                  ),
+                  title: Text(
+                    equipe.nom,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: _navy,
+                    ),
+                  ),
+                  subtitle: Text(
+                    '${equipe.effectif} joueur(s) · ${equipe.coach}',
+                  ),
+                  trailing: const Icon(Icons.chevron_right),
+                  // On transmet l'identifiant BDD pour demander le vrai détail.
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EquipeDetailPage(id: equipe.id),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     ),
   );
 }
 
-class _TeamDetailPage extends StatelessWidget {
-  const _TeamDetailPage({required this.team});
-  final _Team team;
+class EquipeDetailPage extends StatelessWidget {
+  const EquipeDetailPage({super.key, required this.id});
+  final int id;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: const Color(0xFFF5F7FA),
-    appBar: AppBar(title: const Text('Détail de l’équipe'), backgroundColor: const Color(0xFFF5F7FA), foregroundColor: _navy),
-    body: ListView(padding: const EdgeInsets.all(20), children: [
-      Container(padding: const EdgeInsets.all(22), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)), child: Column(children: [
-        CircleAvatar(radius: 36, backgroundColor: team.color.withValues(alpha: .12), child: Icon(Icons.shield_rounded, color: team.color, size: 40)),
-        const SizedBox(height: 12), Text(team.name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: _navy)),
-        const SizedBox(height: 16), _InfoRow(label: 'Coach', value: team.coach), _InfoRow(label: 'Créée en', value: team.year), _InfoRow(label: 'Effectif', value: team.players),
-      ])),
-      const SizedBox(height: 20), const Text('Joueurs de l’équipe', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: _navy)),
-      const SizedBox(height: 10),
-      for (final name in ['Lucas Martin', 'Adam Bernard', 'Noah Petit']) ListTile(contentPadding: EdgeInsets.zero, leading: const CircleAvatar(backgroundColor: Color(0xFFE2F5EC), child: Icon(Icons.person, color: _green)), title: Text(name), subtitle: const Text('Milieu'), trailing: const Icon(Icons.chevron_right)),
-    ]),
+    appBar: AppBar(title: const Text('Détail de l’équipe')),
+    body: ApiBuilder<Map<String, dynamic>>(
+      charger: () => ApiService.getEquipe(id),
+      builder: (json) {
+        // L'API place les joueurs à l'intérieur de data.joueurs.
+        final equipe = Equipe.fromJson(json);
+        final joueurs = (json['joueurs'] as List)
+            .map((j) => Joueur.fromJson(Map<String, dynamic>.from(j)))
+            .toList();
+        return ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            Card(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(22),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.shield_rounded,
+                      size: 56,
+                      color: _couleur(equipe.couleur),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      equipe.nom,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        color: _navy,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Coach : ${equipe.coach}'),
+                    Text('Créée le : ${equipe.dateCreation}'),
+                    Text('Effectif : ${joueurs.length} joueur(s)'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Joueurs de l’équipe',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+                color: _navy,
+              ),
+            ),
+            if (joueurs.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text('Aucun joueur dans cette équipe.'),
+              ),
+            for (final joueur in joueurs)
+              ListTile(
+                leading: const CircleAvatar(
+                  child: Icon(Icons.person, color: _green),
+                ),
+                title: Text(joueur.nomComplet),
+                subtitle: Text(joueur.poste),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => JoueurDetailPage(id: joueur.id),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    ),
   );
-}
-
-class _PageHeader extends StatelessWidget {
-  const _PageHeader({required this.title, required this.subtitle, required this.icon});
-  final String title, subtitle;
-  final IconData icon;
-  @override
-  Widget build(BuildContext context) => Padding(padding: const EdgeInsets.fromLTRB(20, 18, 20, 16), child: Row(children: [
-    Container(width: 48, height: 48, decoration: BoxDecoration(color: const Color(0xFFE2F5EC), borderRadius: BorderRadius.circular(15)), child: Icon(icon, color: _green)),
-    const SizedBox(width: 13), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w800, color: _navy)), Text(subtitle, style: const TextStyle(fontSize: 13, color: Color(0xFF778497)))])
-  ]));
-}
-
-class _CountBadge extends StatelessWidget {
-  const _CountBadge({required this.count});
-  final int count;
-  @override
-  Widget build(BuildContext context) => Container(padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6), decoration: BoxDecoration(color: const Color(0xFFE2F5EC), borderRadius: BorderRadius.circular(20)), child: Text('$count', style: const TextStyle(color: _green, fontWeight: FontWeight.w700)));
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({required this.label, required this.value});
-  final String label, value;
-  @override
-  Widget build(BuildContext context) => Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: Row(children: [Expanded(child: Text(label, style: const TextStyle(color: Color(0xFF778497)))), Text(value, style: const TextStyle(color: _navy, fontWeight: FontWeight.w600))]));
 }

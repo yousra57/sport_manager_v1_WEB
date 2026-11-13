@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'groupe.dart';
 import 'joueur.dart';
 
-
 // navigation principale
 
 void main() => runApp(const SportManagerApp());
@@ -12,7 +11,6 @@ class SportManagerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const navy = Color(0xFF142B45);
     const green = Color(0xFF31B879);
 
     return MaterialApp(
@@ -39,11 +37,7 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 1;
 
-  static const _pages = [
-    GroupPage(),
-    HomePage(),
-    PlayerPage(),
-  ];
+  static const _pages = [GroupPage(), HomePage(), PlayerPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +47,13 @@ class _MainNavigationState extends State<MainNavigation> {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) => setState(() => _selectedIndex = index),
+        onDestinationSelected: (index) =>
+            setState(() => _selectedIndex = index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.groups_outlined),
             selectedIcon: Icon(Icons.groups),
-            label: 'Groupes',
+            label: 'Équipes',
           ),
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
@@ -123,4 +118,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
