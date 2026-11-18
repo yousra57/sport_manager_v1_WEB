@@ -19,6 +19,12 @@ switch ($page) {
     case 'joueur':
         (new JoueurController())->show($id);
         break;
+    case 'inscription':
+        render('auth/inscription', ['title' => 'inscription']);
+        break;
+    case 'connexion':
+        render('auth/connexion', ['title' => 'connexion']);
+        break;
     default:
         notFound();
 }

@@ -6,15 +6,18 @@ $menu = [
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
 ];
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titre) ?> – Sport Manager</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<?php if (!in_array($courante, ['connexion', 'inscription'], true)): ?>
 <header class="site-header">
     <div class="wrap">
         <a class="logo" href="<?= url('equipes') ?>">Sport Manager</a>
@@ -22,9 +25,13 @@ $menu = [
             <?php foreach ($menu as $page => [$libelle, $pages]): ?>
                 <a href="<?= url($page) ?>" class="<?= in_array($courante, $pages, true) ? 'actif' : '' ?>"><?= e($libelle) ?></a>
             <?php endforeach; ?>
+            <div class="bouton-deconnexion">
+                <a href="<?= url('connexion') ?>">Déconnexion</a>
+            </div>
         </nav>
     </div>
 </header>
+<?php endif; ?>
 
 <main class="wrap">
     <?= $contenu ?>
