@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'groupe.dart';
 import 'joueur.dart';
+import 'profil.dart';
 
 // navigation principale
 
@@ -37,7 +38,7 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 1;
 
-  static const _pages = [GroupPage(), HomePage(), PlayerPage()];
+  static const _pages = [GroupPage(), HomePage(), PlayerPage(), ProfilPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,11 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.person_outline_rounded),
             selectedIcon: Icon(Icons.person_rounded),
             label: 'Joueurs',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline_rounded),
+            selectedIcon: Icon(Icons.person_rounded),
+            label: 'Profil',
           ),
         ],
       ),
