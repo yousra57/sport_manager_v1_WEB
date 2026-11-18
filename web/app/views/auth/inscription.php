@@ -9,8 +9,8 @@
     <input type="password" name="password" id="password">
     <label for="confirm_password">confirmer mot de passe</label>
     <input type="password" name="confirm_password" id="confirm_password">
-    <div>
-        <p>vous avez deja un compt?</p>
+    <div class="auth-link-container">
+        <a href="<?= url('connexion') ?>" class="auth-link">vous avez deja un compte?</a>
     </div>
     <button type="submit">inscription</button>
 </form>

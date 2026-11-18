@@ -7,6 +7,9 @@ $page = $_GET['p'] ?? 'equipes';
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?: null;
 
 switch ($page) {
+    // case 'public':
+    //     render('public', ['titre' => 'Accueil']);
+    //     break;
     case 'equipes':
         (new EquipeController())->index();
         break;
@@ -20,10 +23,10 @@ switch ($page) {
         (new JoueurController())->show($id);
         break;
     case 'inscription':
-        render('auth/inscription', ['title' => 'inscription']);
+        render('auth/inscription', ['titre' => 'inscription']);
         break;
     case 'connexion':
-        render('auth/connexion', ['title' => 'connexion']);
+        render('auth/connexion', ['titre' => 'connexion']);
         break;
     default:
         notFound();

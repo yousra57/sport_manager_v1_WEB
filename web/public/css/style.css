@@ -143,6 +143,23 @@ figcaption { font-size: .85rem; color: var(--discret); margin-top: 6px; }
     text-decoration: none;
 }
 
+/* style des liens */
+form .auth-link-container{
+    text-align: right;
+    margin-top: 10px;
+}
+
+form .auth-link{
+    text-decoration: none;
+    color: #1f2430;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    color: #00217d;
+    text-decoration: underline;
+}
+
 @media (max-width: 600px) {
     table { display: block; overflow-x: auto; white-space: nowrap; }
     .infos { grid-template-columns: 1fr; gap: 0; }

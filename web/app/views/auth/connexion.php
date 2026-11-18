@@ -5,8 +5,8 @@
     <input type="text" name="identifiant" id="identifiant">
     <label for="password">mot de passe</label>
     <input type="password" name="password" id="password">
-    <div>
-        <p>vous avez pas de compt?</p>
+    <div class="auth-link-container">
+        <a href="<?= url('inscription') ?>" class="auth-link">vous avez pas de compte?</a>
     </div>
     <button type="submit">connexion</button>
 </form>
