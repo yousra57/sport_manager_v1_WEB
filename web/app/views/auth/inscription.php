@@ -1,4 +1,8 @@
-<h1>inscription</h1>
+<nav class="cnx-inscr-nav">
+    <a href="<?= url('public') ?>">accueil</a>
+    <i class="fa-solid fa-greater-than"></i>
+    <a href="<?= url('inscription') ?>">inscription</a>
+</nav>
 
 <form action="" class="auth-form">
     <label for="name">nom</label>

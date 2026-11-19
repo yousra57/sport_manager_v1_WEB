@@ -13,11 +13,12 @@ $menu = [
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titre) ?> – Sport Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<?php if (!in_array($courante, ['connexion', 'inscription'], true)): ?>
+<?php if (!in_array($courante, ['connexion', 'inscription', 'public'], true)): ?>
 <header class="site-header">
     <div class="wrap">
         <a class="logo" href="<?= url('equipes') ?>">Sport Manager</a>
