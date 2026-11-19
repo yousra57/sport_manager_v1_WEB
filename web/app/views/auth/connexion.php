@@ -4,7 +4,7 @@
     <a href="<?= url('connexion') ?>">connexion</a>
 </nav>
 
-<form action="" class="auth-form">
+<form method="post" action="<?= url('equipes') ?>" class="auth-form">
     <label for="identifiant">identifiant</label>
     <input type="text" name="identifiant" id="identifiant">
     <label for="password">mot de passe</label>
