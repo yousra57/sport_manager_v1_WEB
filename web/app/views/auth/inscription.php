@@ -4,7 +4,7 @@
     <a href="<?= url('inscription') ?>">inscription</a>
 </nav>
 
-<form action="" class="auth-form">
+<form method="post" action="<?= url('equipes') ?>" class="auth-form">
     <label for="name">nom</label>
     <input type="text" name="name" id="name">
     <label for="identifiant">identifiant</label>
