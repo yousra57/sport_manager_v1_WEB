@@ -27,7 +27,7 @@ $menu = [
                 <a href="<?= url($page) ?>" class="<?= in_array($courante, $pages, true) ? 'actif' : '' ?>"><?= e($libelle) ?></a>
             <?php endforeach; ?>
             <div class="bouton-deconnexion">
-                <a href="<?= url('connexion') ?>">Déconnexion</a>
+                <a href="<?= url('public') ?>">Déconnexion</a>
             </div>
         </nav>
     </div>
