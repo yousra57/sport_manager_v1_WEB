@@ -5,6 +5,7 @@ $menu = [
     'home' => ['Accueil', ['home']],
     'equipes' => ['Équipes', ['equipes', 'equipe']],
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
+    'profil' => ['Profil', ['profil']],
 ];
 ?>
 

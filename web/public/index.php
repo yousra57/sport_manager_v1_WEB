@@ -13,6 +13,9 @@ switch ($page) {
     case 'home':
         render('home', ['titre' => 'Accueil']);
         break;
+    case 'profil':
+        render('profil', ['titre' => 'Profil']);
+        break;
     case 'equipes':
         (new EquipeController())->index();
         break;
