@@ -22,7 +22,7 @@ $menu = [
 <?php if (!in_array($courante, ['connexion', 'inscription', 'public'], true)): ?>
 <header class="site-header">
     <div class="wrap">
-        <a class="logo" href="<?= url('equipes') ?>">Sport Manager</a>
+        <a class="logo" href="<?= url('home') ?>">Sport Manager</a>
         <nav>
             <?php foreach ($menu as $page => [$libelle, $pages]): ?>
                 <a href="<?= url($page) ?>" class="<?= in_array($courante, $pages, true) ? 'actif' : '' ?>"><?= e($libelle) ?></a>

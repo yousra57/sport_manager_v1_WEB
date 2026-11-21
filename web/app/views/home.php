@@ -83,5 +83,8 @@
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </article>
         </section>
+        <!-- une autre section avec le titre historique des match,
+             une list des matche jouer avec just les nom des deux equipe A vs B et un mesage gange ou perdu -->
+        <!-- une autre section avec la liste des derniers joueurs blesses, le nom le prenom le post lequipe et la date de blesseur-->
     </section>
 </section>

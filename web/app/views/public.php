@@ -1,8 +1,5 @@
 <header class="public-header">
-    <div>
-        <i class="fa-solid fa-futbol"></i>
-        <a href="<?= url('public') ?>" class="logo">SportManager</a>
-    </div>
+    <a href="<?= url('public') ?>" class="logo">Sp<i class="fa-solid fa-futbol"></i>rt<span>Manager<span></a>
     <nav class="nav-links">
         <a href="#feature" class="nav-link">Fonctionnalités</a>
         <a href="#web-mobile" class="nav-link">Web & mobile</a>
@@ -58,12 +55,19 @@
         <p class="eyebrow">Le club vous suit</p>
         <h2>Sur le web.<br>Sur le terrain.</h2>
         <p class="description">Sport Manager réunit le site et l’application mobile autour des mêmes données de club.</p>
-        <a href="<?= url('inscription') ?>" class="button-cta">Vous atteendez quoi? Rejoindre Sport Manager maintanant!</a>
+        <a href="<?= url('inscription') ?>" class="cta-link">Commencer maintanant!</a>
+        <article class="cta-card">
+            <div>
+                <p class="eyebrow">Prêt à prendre les commandes ?</p>
+                <h2>La prochaine saison se prépare maintenant.</h2>
+            </div>
+            <a href="<?= url('inscription')?>">Rejoindre Sport Manager</a>
+        </article>
     </section>
 </main>
 
 <footer class="public-footer">
-    <p class="ft-logo">Sprot<span>Manager</span></p>
+    <p class="ft-logo">Spr<i class="fa-solid fa-futbol"></i>t<span>Manager</span></p>
     <p>Un projet collaboratif de gestion d’équipe sportive.</p>
     <p>© Sport Manager</p>
 </footer>
