@@ -10,6 +10,9 @@ switch ($page) {
     case 'public':
         render('public', ['titre' => 'Accueil']);
         break;
+    case 'home':
+        render('home', ['titre' => 'Accueil']);
+        break;
     case 'equipes':
         (new EquipeController())->index();
         break;

@@ -357,6 +357,230 @@ form .auth-link{
     color: #00702b;
 }
 
+/*style de la page dashboard*/
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.dashboard-container a{
+    text-decoration: none;
+}
+.dashboard-hero{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    background: #a6d2b2;
+    padding: 25px 30px;
+    border: 1px solid #e5ece7;
+    border-radius: 18px;
+    background: #eaffead5;
+}
+
+.dashboard-hero .eyebrow{
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: .95rem;
+    letter-spacing: .12em;
+    color: #00702b;
+    margin: 0;
+}
+
+.dashboard-hero h1{
+    color: #14251d;
+    font-size: 2.4rem;
+    letter-spacing: -.045em;
+    margin: 10px 0;
+}
+
+.dashboard-description{
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: #65736b;
+    margin: 0 0 20px;
+}
+
+.dashboard-ball{
+    font-size: 3rem;
+}
+
+.dashboard-actions{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.dashboard-action{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 10px 15px;
+    border: 1px solid;
+    border-radius: 9px;
+}
+
+.dashboard-actions .first{
+    color: white;
+    background: #2b8f51;
+    border-color: #9de5b9;
+}
+.dashboard-actions .second{
+    color: #176443;
+    background: white;
+    border-color: #b8ddc7;
+}
+.dashboard-actions .therd{
+    color: white;
+    background: #142b45;
+    border-color: #14375f;
+}
+
+.dashboard-stats{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.dashboard-stat{
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    border: 2px solid #e8eee9;
+    border-radius: 15px;
+    background: #ffffff;
+}
+
+.dashboard-icon{
+    padding: 15px 18px 12px;
+    border-radius: 18px;
+}
+
+.dashboard-stat .fa-solid{
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+.dashboard-stat .red{
+    background: #fceaea;
+    color: #a82828;
+}
+.dashboard-stat .blue{
+    background: #eaf2fc;
+    color: #2863a8;
+}
+.dashboard-stat .yellow{
+    background: #fbffdf;
+    color: #b6b91e;
+}
+.dashboard-stat .orange{
+    background: #fff1df;
+    color: #b9671e;
+}
+
+.dashboard-stat-content p{
+    margin: 0;
+}
+
+.dashboard-stat-content{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.dashboard-stat-value{
+    font-size: 1.98rem;
+    font-weight: 700;
+}
+
+.dashboard-stat-title{
+    font-size: .88rem;
+    font-weight: 400;
+    color: #65736b;
+    text-transform: uppercase;
+}
+
+
+.dashboard-equipes{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dashboard-equipes-header h2{
+    margin: 0;
+    margin-bottom: 2px;
+    font-weight: 800;
+}
+
+.dashboard-title-link{
+    color: inherit;
+    text-decoration: none;
+}
+.dashboard-title-link:hover{
+    color: #0b8d59;
+}
+
+.dashboard-equipes-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    color: #075b3a;
+}
+
+.dashboard-equipe{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+    border: 2px solid #e7ece8;
+    border-radius: 15px;
+    background: #ffffff;
+}
+
+.dashboard-equipe .fa-solid{
+    font-size: 1.7rem;
+    margin: 0;
+    color: #075b3a;
+}
+
+.dashboard-equipe-content{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.dashboard-equipe-content p{
+    margin: 0;
+}
+
+.dashboard-equipe-title{
+    font-weight: 700;
+    font-size: 1.13rem;
+    color: #14251d;
+}
+
+.dashboard-equipe-valeu{
+    font-size: .99rem;
+    color: #65736b;
+}
+
+.dashboard-equipe .fa-arrow-up-right-from-square{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 1.1rem;
+    color: #97a49b;
+}
+
+
+
 @media (max-width: 600px) {
     table { display: block; overflow-x: auto; white-space: nowrap; }
     .infos { grid-template-columns: 1fr; gap: 0; }

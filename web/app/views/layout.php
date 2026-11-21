@@ -2,6 +2,7 @@
 // Variables disponibles : $titre, $contenu
 $courante = $_GET['p'] ?? 'public';
 $menu = [
+    'home' => ['Accueil', ['home']],
     'equipes' => ['Équipes', ['equipes', 'equipe']],
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
 ];
