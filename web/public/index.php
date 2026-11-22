@@ -16,6 +16,9 @@ switch ($page) {
     case 'profil':
         render('profil', ['titre' => 'Profil']);
         break;
+    case 'match':
+        render('match', ['titre' => 'Matchs']);
+        break;
     case 'equipes':
         (new EquipeController())->index();
         break;

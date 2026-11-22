@@ -3,6 +3,7 @@
 $courante = $_GET['p'] ?? 'public';
 $menu = [
     'home' => ['Accueil', ['home']],
+    'match' => ['Match', ['match']],
     'equipes' => ['Équipes', ['equipes', 'equipe']],
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
     'profil' => ['Profil', ['profil']],
