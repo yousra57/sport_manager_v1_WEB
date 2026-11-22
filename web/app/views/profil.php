@@ -58,6 +58,20 @@
             </div>
             <a href="<?= url('public') ?>" class="profil-bouton">Se déconnecter</a>
         </div>
+        <div class="profil-action-link update">
+            <div>
+                <h3>Modifier les informations du compte</h3>
+                <p>Mettez à jour les informations personnelles de votre compte</p>
+            </div>
+            <button class="profil-bouton" type="button" disabled>Modifier</button>
+        </div>
+        <div class="profil-action-link restart">
+            <div>
+                <h3>Réinitialiser mon compte</h3>
+                <p>Supprimez les données du compte pour repartir de zéro et recommencer une nouvelle partie.</p>
+            </div>
+            <button class="profil-bouton" type="button" disabled>Réinitialiser</button>
+        </div>
         <div class="profil-action-link suppression">
             <div>
                 <h3>Supprimer le compte</h3>

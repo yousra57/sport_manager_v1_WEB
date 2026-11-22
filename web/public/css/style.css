@@ -734,7 +734,7 @@ form .auth-link{
     padding-top: 20px;
 }
 
-.profil-action-link.logout{
+.profil-action-link.logout, .profil-action-link.update, .profil-action-link.restart{
     border-bottom: 1px solid #e3e6eb;
     padding-bottom: 20px;
 }
