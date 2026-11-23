@@ -836,6 +836,10 @@ form .auth-link{
     padding-bottom: 25px;
 }
 
+.simulator-panel{
+    background-color: #e1f9ed;
+}
+
 .match-panel-head{
     display: flex;
     align-items: center;
@@ -903,6 +907,12 @@ form .auth-link{
     border-radius: 8px;
 }
 
+.match-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .match-row{
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -926,12 +936,22 @@ form .auth-link{
 }
 .match-row .match-badge{
     justify-self: start;
-    background-color: #e8f7ee;
     border-radius: 99px;
     padding: 5px 15px;
     font-weight: 500;
     font-size: .93rem;
+}
+.match-row .match-badge.win{
+    background-color: #e8f7ee;
     color: #176443;
+}
+.match-row .match-badge.losse{
+    background-color: #f7e8e8;
+    color: #641717;
+}
+.match-row .match-badge.tie{
+    background-color: #d9f0ff;
+    color: #171c64;
 }
 
 .match-badge, .match-row time{
