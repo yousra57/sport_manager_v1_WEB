@@ -490,11 +490,11 @@ form .auth-link{
 
 .dashboard-icon{
     padding: 15px 18px 12px;
-    border-radius: 18px;
+    border-radius: 15px;
 }
 
 .dashboard-stat .fa-solid{
-    font-size: 1.7rem;
+    font-size: 1.1rem;
     margin: 0;
 }
 
@@ -526,12 +526,12 @@ form .auth-link{
 }
 
 .dashboard-stat-value{
-    font-size: 1.98rem;
+    font-size: 1.7rem;
     font-weight: 700;
 }
 
 .dashboard-stat-title{
-    font-size: .88rem;
+    font-size: .9rem;
     font-weight: 400;
     color: #65736b;
     text-transform: uppercase;
