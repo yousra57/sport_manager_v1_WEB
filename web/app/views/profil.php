@@ -36,15 +36,15 @@
         <dl class="profil-stats">
             <div>
                 <dt>Équipes</dt>
-                <dd>09</dd>
+                <dd><?= e($nombreEquipes) ?></dd>
             </div>
             <div>
                 <dt>Joueurs</dt>
-                <dd>33</dd>
+                <dd><?= e($nombreJoueurs) ?></dd>
             </div>
             <div>
                 <dt>Joueurs blessés</dt>
-                <dd>07</dd>
+                <dd><?= e($nombreBlesses) ?></dd>
             </div>
         </dl>
     </section>

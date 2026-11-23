@@ -4,3 +4,4 @@
 require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/models/Equipe.php';
 require_once __DIR__ . '/models/Joueur.php';
+require_once __DIR__ . '/models/Matchs.php';

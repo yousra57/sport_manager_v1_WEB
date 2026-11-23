@@ -9,7 +9,7 @@
             <p class="dashboard-description">Voici le résumé de votre club. Retrouvez rapidement vos équipes et votre effectif.</p>
         </div>
 
-        <div class="dashboard-ball">
+        <div class="dashboard-ball animate__animated animate__lightSpeedInRight">
             <i class="fa-solid fa-futbol"></i>
         </div>
 
@@ -34,7 +34,7 @@
                 <i class="fa-solid fa-shield-halved"></i>
             </spam>
             <div class="dashboard-stat-content">
-                <p class="dashboard-stat-value">4</p>
+                <p class="dashboard-stat-value"><?= e($nombreEquipes) ?></p>
                 <p class="dashboard-stat-title">equipe</p>
             </div>
         </article>
@@ -43,7 +43,7 @@
                 <i class="fa-solid fa-people-group"></i>
             </spam>
             <div class="dashboard-stat-content">
-                <p class="dashboard-stat-value">32</p>
+                <p class="dashboard-stat-value"><?= e($nombreJoueurs) ?></p>
                 <p class="dashboard-stat-title">joueurs</p>
             </div>
         </article>
@@ -52,7 +52,7 @@
                 <i class="fa-solid fa-kit-medical"></i>
             </spam>
             <div class="dashboard-stat-content">
-                <p class="dashboard-stat-value">5</p>
+                <p class="dashboard-stat-value"><?= e($nombreBlesses) ?></p>
                 <p class="dashboard-stat-title">Blessés</p>
             </div>
         </article>
@@ -61,7 +61,7 @@
                 <i class="fa-solid fa-chess-rook"></i>
             </spam>
             <div class="dashboard-stat-content">
-                <p class="dashboard-stat-value">3</p>
+                <p class="dashboard-stat-value"><?= e($nombreMatchs) ?></p>
                 <p class="dashboard-stat-title">match joue</p>
             </div>
         </article>
@@ -74,14 +74,16 @@
                     <a class="dashboard-title-link" href="<?= url('equipes') ?>">mes equipes</a>
                 </h2>
             </div>
+            <?php foreach ($dernieresEquipes as $equipe): ?>
             <article class="dashboard-equipe">
                 <i class="fa-solid fa-shield-halved"></i>
                 <div class="dashboard-equipe-content">
-                    <p class="dashboard-equipe-title">JSK:Jeunes Kabyle</p>
-                    <p class="dashboard-equipe-valeu">13 joueur(s)</p>
+                    <p class="dashboard-equipe-title"><?= e($equipe['nom_equipe']) ?></p>
+                    <p class="dashboard-equipe-valeu"><?= e($equipe['nb_joueurs']) ?> joueur(s)</p>
                 </div>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </article>
+            <?php endforeach ?>
         </section>
         <!-- une autre section avec le titre historique des match,
              une list des matche jouer avec just les nom des deux equipe A vs B et un mesage gange ou perdu -->

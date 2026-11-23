@@ -23,4 +23,25 @@ class Equipe
 
         return $st->fetch() ?: null;
     }
+
+    //recupere le nomebr des equipe
+    public static function equipeTotal(): int{
+        $sql = "SELECT COUNT(*) FROM equipe";
+        return (int) Database::pdo()->query($sql)->fetchColumn();
+    }
+
+    //recupere les 6 equpe es plus recemment crees + nombre de joueurs dans chaque equipe
+    public static function latestEquipe(): array{
+        $sql = 'SELECT e.*,
+            (
+                SELECT COUNT(DISTINCT a.id_joueur) 
+                FROM affectation a
+                WHERE a.id_equipe = e.id_equipe
+                AND a.date_fin IS NULL   
+            ) AS nb_joueurs
+            FROM equipe e 
+            ORDER BY e.date_creation DESC, e.id_equipe DESC 
+            LIMIT 6';
+        return Database::pdo()->query($sql)->fetchAll();
+    }    
 }

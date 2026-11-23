@@ -40,4 +40,16 @@ class Joueur
 
         return $st->fetch() ?: null;
     }
+
+    // Recupere le nomber des joueur blesse
+    public static function countInjured(): int{
+        $sql = 'SELECT COUNT(DISTINCT id_joueur) FROM blessure WHERE date_fin IS NULL';
+        return(int) Database::pdo()->query($sql)->fetchColumn();
+    }
+
+    //compte tous les joueur
+    public static function countPlayers(): int{
+        $sql = 'SELECT COUNT(*) FROM joueur';
+        return (int) Database::pdo()->query($sql)->fetchColumn();
+    }
 }

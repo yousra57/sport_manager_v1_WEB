@@ -111,6 +111,20 @@ try {
         ]);
     }
 
+
+    // recuperer les donnees pour la page dacceuil
+    if ($chemin === '/api/home'){
+        reponseJson(200, [
+            'success' => true,
+            'data' => [
+                'joueurs_blesses' => Joueur::countInjured(),
+                'joueurs_total' => Joueur::countPlayers(),
+                'matchs_joues' => Matchs::countMatch(),
+                'equipe_total' => Equipe::equipeTotal()
+            ]
+        ]);
+    }
+
     // Aucune route correspondante
     reponseJson(404, [
         'success' => false,

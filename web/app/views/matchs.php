@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-list-check"></i>
             </span>
             <div>
-                <p class="match-stat-valeu">04</p>
+                <p class="match-stat-valeu"><?= e($nombreMatchs) ?></p>
                 <p class="match-stat-title">Matchs joués</p>
             </div>
         </article>
@@ -22,7 +22,7 @@
                 <i class="fa-solid fa-trophy"></i>
             </span>
             <div>
-                <p class="match-stat-valeu">14</p>
+                <p class="match-stat-valeu"><?= e($nombreMatchsGagne) ?></p>
                 <p class="match-stat-title">Victoires</p>
             </div>
         </article>
@@ -31,7 +31,7 @@
                 <i class="fa-solid fa-arrow-trend-down"></i>
             </span>
             <div>
-                <p class="match-stat-valeu">09</p>
+                <p class="match-stat-valeu"><?= e($nombreMatchsPerdu) ?></p>
                 <p class="match-stat-title">Défaites</p>
             </div>
         </article>
@@ -40,7 +40,7 @@
                 <i class="fa-solid fa-handshake"></i>
             </span>
             <div>
-                <p class="match-stat-valeu">00</p>
+                <p class="match-stat-valeu"><?= e($nombreMatchsNuls) ?></p>
                 <p class="match-stat-title">Matchs nuls</p>
             </div>
         </article>
@@ -48,7 +48,7 @@
     <section class="match-panel simulator-panel">
         <div class="match-panel-head">
             <span class="match-panel-icon">
-                <i class="fa-solid fa-dice"></i>
+                <i class="fa-solid fa-dice animate__animated animate__jello"></i>
             </span>
             <div>
                 <h2>Simuler un match</h2>
@@ -98,15 +98,23 @@
             </div>
         </div>
         <div class="match-list">
-            <article class="match-row">
-                <div class="match-team">
-                    <span>JS Kabylee</span>
-                    <span>3 - 1</span>
-                    <span>US Akbou</span>
-                </div>
-                <time datetime="#">32/04/105</time>
-                <span class="match-badge">Victoire</span>
-            </article>
+            <?php foreach ($derniersMatchs as $match): ?>
+                <article class="match-row">
+                    <div class="match-team">
+                        <span><?= e($match['equipe_domicile']) ?></span>
+                        <span><?= e($match['score_dom']) ?> - <?= e($match['score_ext']) ?></span>
+                        <span><?= e($match['equipe_exterieure']) ?></span>
+                    </div>
+                    <time datetime="#"><?= e($match['date_match']) ?></time>
+                    <?php if ($match['score_dom'] > $match['score_ext']): ?>
+                        <span class="match-badge win">Victoire</span>
+                    <?php elseif ($match['score_dom'] < $match['score_ext']): ?>
+                        <span class="match-badge losse">Défaite</span>
+                    <?php else: ?>
+                        <span class="match-badge tie">Match nul</span>
+                    <?php endif; ?>
+                </article>
+            <?php endforeach; ?>
         </div>
     </section>
 </section>

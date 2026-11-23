@@ -11,13 +11,13 @@ switch ($page) {
         render('public', ['titre' => 'Accueil']);
         break;
     case 'home':
-        render('home', ['titre' => 'Accueil']);
+        (new HomeController())->index();
         break;
     case 'profil':
-        render('profil', ['titre' => 'Profil']);
+        (new ProfilController())->index();
         break;
     case 'match':
-        render('match', ['titre' => 'Matchs']);
+        (new MatchController())->index();
         break;
     case 'equipes':
         (new EquipeController())->index();

@@ -8,3 +8,6 @@ require_once __DIR__ . '/helpers.php';
 
 require_once __DIR__ . '/controllers/EquipeController.php';
 require_once __DIR__ . '/controllers/JoueurController.php';
+require_once __DIR__ . '/controllers/HomeController.php';
+require_once __DIR__ . '/controllers/ProfilController.php';
+require_once __DIR__ . '/controllers/MatchController.php';
