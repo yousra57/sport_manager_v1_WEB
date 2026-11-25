@@ -1,3 +1,5 @@
+<!-- Détail d'une équipe, lorsqu'on clique sur son nom -->
+
 <p class="retour"><a href="<?= url('equipes') ?>">← Toutes les équipes</a></p>
 <h1><?= e($equipe['nom']) ?></h1>
 

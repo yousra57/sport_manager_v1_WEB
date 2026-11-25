@@ -1,3 +1,5 @@
+<!-- Tableau d'affichage de tous les joueurs, avec un lien vers le détail de chaque joueur. -->
+
 <h1>Joueurs</h1>
 
 <table>

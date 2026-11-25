@@ -14,7 +14,7 @@ class JoueurController
     {
         $joueur = $id ? Joueur::find($id) : null;
         if (!$joueur) {
-            notFound("Ce joueur n'existe pas.");
+            notFound("Ce joueur n'existe pas."); // message d'erreur si le joueur n'existe pas
             return;
         }
 

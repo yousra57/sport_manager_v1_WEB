@@ -1,3 +1,5 @@
+<!-- Tableau d'affichage de toutes les équipes, avec un lien vers le détail de chaque équipe. -->
+ 
 <h1>Équipes</h1>
 
 <table>

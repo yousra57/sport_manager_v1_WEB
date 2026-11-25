@@ -1,3 +1,5 @@
+<!-- Affichage du détail d'un joueur, lorsqu'on clique sur son nom dans la liste des joueurs. -->
+
 <?php
 $competences = [
     'Vitesse' => $joueur['vitesse'],
