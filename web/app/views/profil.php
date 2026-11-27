@@ -72,6 +72,13 @@
             </div>
             <button class="profil-bouton" type="button" disabled>Réinitialiser</button>
         </div>
+        <div class="profil-action-link restart">
+            <div>
+                <h3>Réinitialiser les matchs</h3>
+                <p>Supprimez les données des matchs pour repartir de zéro et recommencer une nouvelle list.</p>
+            </div>
+            <button class="profil-bouton" type="button" disabled>Réinitialiser</button>
+        </div>
         <div class="profil-action-link suppression">
             <div>
                 <h3>Supprimer le compte</h3>

@@ -19,6 +19,9 @@ switch ($page) {
     case 'match':
         (new MatchController())->index();
         break;
+    case 'listMatch':
+        (new MatchController())->liste();
+        break;
     case 'equipes':
         (new EquipeController())->index();
         break;

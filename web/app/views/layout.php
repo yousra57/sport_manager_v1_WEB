@@ -3,7 +3,7 @@
 $courante = $_GET['p'] ?? 'public';
 $menu = [
     'home' => ['Accueil', ['home']],
-    'match' => ['Match', ['match']],
+    'match' => ['Match', ['match', 'listMatch']],
     'equipes' => ['Équipes', ['equipes', 'equipe']],
     'joueurs' => ['Joueurs', ['joueurs', 'joueur']],
     'profil' => ['Profil', ['profil']],
@@ -18,7 +18,7 @@ $menu = [
     <title><?= e($titre) ?> – Sport Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
 
@@ -41,5 +41,7 @@ $menu = [
 <main class="wrap">
     <?= $contenu ?>
 </main>
+
+<script src="/assets/script.js"></script>
 </body>
 </html>

@@ -55,12 +55,15 @@
                 <p>Choisis les deux équipes pour générer un résultat aléatoire.</p>
             </div>
         </div>
-        <form action="#" class="match-form">
+        <form action="" method="POST" class="match-form">
             <!-- <div> -->
                 <label for="equipe_domicile">
                     Équipe à domicile
                     <select name="equipe_domicile" id="equipe_domicile">
-                        <option value="">Sélectionner une équipe</option>
+                        <option value="">Sélectionner une équipe domc</option>
+                        <?php foreach($listDesEquipe as $equipe): ?>
+                            <option value="<?= e($equipe['id_equipe']) ?>"><?= e($equipe['nom_equipe']) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </label>
             <!-- </div> -->
@@ -69,7 +72,10 @@
                 <label for="equipe_exterieure">
                     Équipe à l’extérieur
                     <select name="equipe_exterieure" id="equipe_exterieure">
-                        <option value="">Sélectionner une équipe</option>
+                        <option value="">Sélectionner une équipe extr</option>
+                        <?php foreach($listDesEquipe as $equipe): ?>
+                            <option value="<?= e($equipe['id_equipe']) ?>"><?= e($equipe['nom_equipe']) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </label>
             <!-- </div> -->
@@ -78,23 +84,31 @@
                 Lancer la simulation
             </button>
         </form>
-        <!-- <?php if ($simulation): ?>
-            <div class="match-result" role="status">
-                <span><?= e($simulation['domicile']) ?></span>
-                <strong><?= (int) $simulation['score_dom'] ?> – <?= (int) $simulation['score_ext'] ?></strong>
-                <span><?= e($simulation['exterieur']) ?></span>
-                <small>Résultat enregistré dans les derniers matchs.</small>
+        <?php if (isset($matchSimulature)): ?>
+            <div class="match-result animate__animated animate__bounce">
+                <span class="match-result-team"><?= e($matchSimulature['equipe_domicile']) ?></span>
+                <strong class="match-result-score">
+                    <?= e($matchSimulature['score_dom']) ?>
+                    –
+                    <?= e($matchSimulature['score_ext']) ?>
+                </strong>
+                <span class="match-result-team"><?= e($matchSimulature['equipe_exterieure']) ?></span>
             </div>
-        <?php endif; ?> -->
+        <?php endif; ?>
     </section>
     <section class="match-panel">
         <div class="match-panel-head">
+            
             <span class="match-panel-icon history">
                 <i class="fa-solid fa-clock-rotate-left"></i>
             </span>
             <div>
                 <h2>Derniers matchs joués</h2>
                 <p>Les 8 résultats les plus récents.</p>
+            </div>
+            <div class="match-panel-head-button">
+                <a href="<?= e(url('listMatch')) ?>">Voir tout</a>
+                <i class="fa-solid fa-arrow-right-long"></i>
             </div>
         </div>
         <div class="match-list">
