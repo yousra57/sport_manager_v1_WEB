@@ -22,7 +22,7 @@
                 <i class="fa-solid fa-shield-halved"></i>
                 Créer une équipe
             </a>
-            <a href="#" class="dashboard-action therd">
+            <a href="<?= e(url('match')) ?>#simuler-match" class="dashboard-action therd">
                 <i class="fa-solid fa-dice"></i>
                 Simuler un match
             </a>

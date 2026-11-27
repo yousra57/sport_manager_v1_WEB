@@ -45,7 +45,7 @@
             </div>
         </article>
     </section>
-    <section class="match-panel simulator-panel">
+    <section class="match-panel simulator-panel" id="simuler-match">
         <div class="match-panel-head">
             <span class="match-panel-icon">
                 <i class="fa-solid fa-dice animate__animated animate__jello"></i>
